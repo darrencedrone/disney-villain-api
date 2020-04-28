@@ -1,7 +1,11 @@
 const models = require('../models')
 
 const getAllVillains = async (request, response) => {
-  const villains = await models.villains.findAll()
+  const villains = await models.villains.findAll({
+    attributes: ['name', 'movie', 'slug'],
+  }).then(function (list) {
+    return list
+  })
 
   return response.send(villains)
 }
@@ -9,11 +13,16 @@ const getAllVillains = async (request, response) => {
 const getBySlug = async (request, response) => {
   const { slug } = request.params
 
-  const matchingSlug = await models.villains.findOne({ where: { slug } })
-
-  return matchingSlug
-    ? response.send(matchingSlug)
-    : response.sendStatus(404)
+  const matchingSlug = await models.villains.findOne({
+    where: {
+      slug
+    },
+    attributes: ['name', 'movie', 'slug'],
+  }).then(function (columns) {
+    return columns
+      ? response.status(200).json(columns)
+      : response.sendStatus(404)
+  })
 }
 
 const saveNewVillain = async (request, response) => {
