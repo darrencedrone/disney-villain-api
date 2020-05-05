@@ -1,6 +1,6 @@
 CREATE DATABASE disneyvillains;
 
-CREATE USER 'disneyvillains'@'localhost' IDENTIFIER WITH mysql_native_password BY 'y0$0yb@dguy';
+CREATE USER 'disneyvillains'@'localhost' IDENTIFIED WITH mysql_native_password BY 'y0$0yb@dguy';
 
 GRANT ALL on disneyvillains.* TO 'disneyvillains'@'localhost';
 
